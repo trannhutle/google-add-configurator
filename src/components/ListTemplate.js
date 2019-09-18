@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
-import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
@@ -15,20 +15,25 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import AddIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import DnsIcon from "@material-ui/icons/Dns";
-import TvIcon from "@material-ui/icons/Tv";
 
-import { keywords } from "./Home";
 import { Typography } from "@material-ui/core";
-import { yellowColor, blueColor, greenColor } from "../viewUIs/Shared";
+import {
+  yellowColor,
+  blueColor,
+  greenColor,
+  panelColor,
+  keywords
+} from "../shared/Shared";
+
 const useStyles = makeStyles(theme =>
   createStyles({
     paper: {
-      padding: theme.spacing(1),
-      height: "100%"
+      height: "100%",
+      backgroundColor: panelColor
     },
     icon: {
-      "vertical-align": "middle"
+      "vertical-align": "middle",
+      fontSize: "1rem"
     },
     textList: {
       fontSize: "0.3rem !important"
@@ -65,31 +70,35 @@ const Header = props => {
   const classes = useStyles();
 
   return (
-    <Grid container>
-      <TextField
-        className={clsx(classes.textField)}
-        placeholder={props.placeholderText}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              {" "}
-              <Button
-                variant="contained"
-                size="small"
-                color={props.headerName === keywords ? "primary" : "secondary"}
-              >
-                <AddIcon className={classes.icon} />
-                Add
-              </Button>
-            </InputAdornment>
-          )
-        }}
-      />
-    </Grid>
+    <Box p={1} pb={0}>
+      <Grid container>
+        <TextField
+          className={clsx(classes.textField)}
+          placeholder={props.placeholderText}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {" "}
+                <Button
+                  variant="contained"
+                  size="small"
+                  color={
+                    props.headerName === keywords ? "primary" : "secondary"
+                  }
+                >
+                  <AddIcon className={classes.icon} />
+                  Add
+                </Button>
+              </InputAdornment>
+            )
+          }}
+        />
+      </Grid>
+    </Box>
   );
 };
 function generate(element: React.ReactElement) {
-  return [0, 1, 2].map(value =>
+  return [0, 1, 2, 5, 6, 7, 8, 234].map(value =>
     React.cloneElement(element, {
       key: value
     })
@@ -125,30 +134,15 @@ const ListItems = () => {
 export function ListTemplate(props) {
   const classes = useStyles();
   return (
-    <div>
-      <Typography variant="h6" component="h6" className={classes.whiteText}>
-        {props.headerName === keywords ? (
-          <DnsIcon
-            fontSize="large"
-            className={clsx(classes.icon, classes.kwIcon)}
-          />
-        ) : (
-          <TvIcon
-            fontSize="large"
-            className={clsx(classes.icon, classes.sitesIcon)}
-          />
-        )}
-        {props.headerName}
-      </Typography>
-
-      <Paper className={classes.paper}>
-        <Header
-          placeholderText={props.placeholderText}
-          headerName={props.headerName}
-        />
-        <Divider className={classes.marginVertical} />
-        <ListItems />
-      </Paper>
+    <div className={classes.paper}>
+      {/* <Paper className={classes.paper}> */}
+      <Header
+        placeholderText={props.placeholderText}
+        headerName={props.headerName}
+      />
+      <Divider className={classes.marginVertical} />
+      <ListItems />
+      {/* </Paper> */}
     </div>
   );
 }

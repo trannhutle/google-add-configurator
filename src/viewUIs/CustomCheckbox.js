@@ -1,11 +1,14 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
-import { defaultColor, greenColor, blueColor, yellowColor } from "./Shared";
+import { defaultColor, greenColor, blueColor, yellowColor } from "../shared/Shared";
 
 const greenCbStyles = theme => ({
   root: {
     "&$checked": {
+      color: greenColor
+    },
+    "&:hover": {
       color: greenColor
     },
     color: defaultColor
@@ -18,6 +21,9 @@ const blueCbStyles = theme => ({
     "&$checked": {
       color: blueColor
     },
+    "&:hover": {
+      color: blueColor
+    },
     color: defaultColor
   },
   checked: {}
@@ -26,6 +32,9 @@ const blueCbStyles = theme => ({
 const yellowCbStyles = theme => ({
   root: {
     "&$checked": {
+      color: yellowColor
+    },
+    "&:hover": {
       color: yellowColor
     },
     color: defaultColor

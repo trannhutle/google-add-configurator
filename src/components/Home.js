@@ -1,127 +1,76 @@
-import React from "react";
-import { createStyles, makeStyles, Button, Paper } from "@material-ui/core";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import ListTemplate from "./ListTemplate";
 import Settings from "./Setting";
-import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-import { borderRadius } from "@material-ui/system";
+
+import Header from "./Header";
+import CustomTheme from "../viewUIs/Theme";
+import UniqueId from "react-html-id";
+
 import {
-  defaultColor,
-  greenColor,
-  blueColor,
-  yellowColor
-} from "../viewUIs/Shared";
+  keywords,
+  kwPlaceholder,
+  sitePlaceholder,
+  sites
+} from "../shared/Shared";
 
-const userStyles = makeStyles(theme => createStyles({}));
-export const keywords = "Keywords";
-const kwPlaceholder = "Enter your keywords here (shoes)";
-export const sites = "Sites";
-const sitePlaceholder = "Enter your keywords here (shoes)";
+class Home extends Component {
+  /* Initialise state of the application */
+  constructor() {
+    super();
+    UniqueId.enableUniqueIds(this);
 
-export const theme = createMuiTheme({
-  overrides: {
-    MuiFormControlLabel: {
-      label: {
-        fontSize: "0.85rem"
-      },
-      root: {
-        paddingRight: "0.2em"
-      }
-    },
-    MuiCheckbox: {
-      root: {
-        padding: "0.1em"
-      }
-    },
-    MuiTextField: {
-      root: {
-        width: "100%",
-        padding: "3px",
-        backgroundColor: "#FFF",
-        justifyContent: "center",
-        borderRadius: "3px"
-      }
-    },
-    MuiInput: {
-      input: {
-        fontSize: "0.7rem"
-      },
-      underline: {
-        "&:before": {
-          content: "none"
-        },
-        "&:after": {
-          content: "none"
-        },
-        "&:hover": {
-          content: "none"
-        }
-      }
-    },
-    MuiGrid: {
-      container: {
-        height: "2em"
-      }
-    },
-    MuiButton: {
-      sizeSmall: {
-        padding: "1px 2px",
-        minWidth: "32px"
-      }
-    },
-    MuiListItemText: {
-      primary: {
-        fontSize: "0.875rem"
-      }
-    },
-    MuiButton: {
-      containedPrimary: {
-        backgroundColor: blueColor,
-        color: "#FFF"
-      },
-      containedSecondary: {
-        backgroundColor: greenColor,
-        color: "#FFF"
-      },
-      contained: {
-        backgroundColor: yellowColor,
-        color: "#FFF"
-      }
-    }
+    this.state = {
+      browsers: [
+        { id: this.nextUniqueId(), name: "Chrome", checked: false },
+        { id: this.nextUniqueId(), name: "Firefox", checked: false },
+        { id: this.nextUniqueId(), name: "Explorer", checked: true },
+        { id: this.nextUniqueId(), name: "Safari", checked: false },
+        { id: this.nextUniqueId(), name: "Opera", checked: false },
+        { id: this.nextUniqueId(), name: "Incognito", checked: false }
+      ]
+    };
   }
-});
-
-export function Home() {
-  return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <Grid container spacing={3}>
-          <Grid item xs={3}>
-            <Paper id="papper_keywords">
+  updateBrowser = (id, checked) => {
+    const index = this.state.browsers.findIndex(b => {
+      return b.id === id;
+    });
+    const uBrowser = Object.assign({}, this.state.browsers[index]);
+    uBrowser.checked = checked;
+    const browsers = Object.assign([], this.state.browsers);
+    browsers[index] = uBrowser;
+    this.setState({ browsers: browsers });
+  };
+  render() {
+    return (
+      <div>
+        <ThemeProvider theme={CustomTheme}>
+          <Header />
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
               <ListTemplate
                 headerName={keywords}
                 placeholderText={kwPlaceholder}
               />
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper id="papper_sites">
+            </Grid>
+            <Grid item xs={3}>
               <ListTemplate
                 headerName={sites}
                 placeholderText={sitePlaceholder}
               />
-            </Paper>
+            </Grid>
+            <Grid item xs={6}>
+              <Settings
+                browsers={this.state.browsers}
+                updateBrowser={this.updateBrowser}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Paper id="papper_setting">
-              <Settings />
-            </Paper>
-          </Grid>
-        </Grid>
-      </ThemeProvider>
-    </div>
-  );
+        </ThemeProvider>
+      </div>
+    );
+  }
 }
 
 export default Home;
