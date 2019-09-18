@@ -13,7 +13,8 @@ import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import { useSettingPageStyle } from "../viewUIs/Theme";
 
 import { Browsers } from "./settings/Browsers";
-import { ThemeProvider } from "@material-ui/styles";
+import { Devices } from "./settings/Devices";
+import Methods from "./settings/Methods";
 
 export function Settings(props) {
   const classes = useSettingPageStyle();
@@ -24,7 +25,6 @@ export function Settings(props) {
           browsers={props.browsers}
           updateBrowser={props.updateBrowser}
         />
-
         <Divider className={classes.marginVertical} />
         <Box p={1}>
           <Grid item xs>
@@ -217,148 +217,20 @@ export function Settings(props) {
       <Box mt={2}>
         <Paper className={classes.paper}>
           <Box p={1} className={classes.alignCenter}>
-            <FormGroup row>
-              <FormControlLabel
-                item
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="green"
-                  />
-                }
-                label="Device Reset"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="green"
-                  />
-                }
-                label="Vinn Reset"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="green"
-                  />
-                }
-                label="Phone Reset"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="green"
-                  />
-                }
-                label="Mobile Data"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="green"
-                  />
-                }
-                label="Fly Mode"
-              ></FormControlLabel>
-            </FormGroup>
+            <Devices
+              devices={props.devices}
+              updateDevice={props.updateDevice}
+            />
           </Box>
 
           <Divider className={classes.marginVertical} />
 
           <Box p={1} className={classes.alignCenter}>
             <FormGroup row>
-              <FormControlLabel
-                item
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Remove Cookies"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Change Resolution"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Mouse Tracks"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Data Saving Mode"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Random Generate"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Analytic Protection"
-              ></FormControlLabel>
-              <FormControlLabel
-                className={classes.cbBorder}
-                control={
-                  <CustomCheckbox
-                    className={classes.cbSmall}
-                    value="checkedA"
-                    color="blue"
-                  />
-                }
-                label="Remove History"
-              ></FormControlLabel>
+            <Methods
+              methods={props.methods}
+              updateMethod={props.updateMethod}
+            />
             </FormGroup>
             <Divider className={classes.dividerVertical} />
           </Box>

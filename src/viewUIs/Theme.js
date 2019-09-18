@@ -104,8 +104,16 @@ export const useSettingPageStyle = makeStyles(theme =>
       border: "1px solid " + defaultColor,
       borderRadius: "5px"
     },
-    cbBorderSelected: {
+    cbYellowSelected: {
       border: "1px solid " + hoverYellowColor,
+      borderRadius: "5px"
+    },
+    cbGreenSelected: {
+      border: "1px solid " + hoverGreenColor,
+      borderRadius: "5px"
+    },
+    cbBlueSelected: {
+      border: "1px solid " + hoverBlueColor,
       borderRadius: "5px"
     },
     marginVertical: {

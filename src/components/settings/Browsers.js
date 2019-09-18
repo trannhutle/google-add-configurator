@@ -18,16 +18,14 @@ export const Browsers = props => {
           <FormGroup row>
             {props.browsers.map(b => {
               const changeHandle = event => {
-                console.log(event.currentTarget.value, b);
                 const checked = event.currentTarget.checked;
                 props.updateBrowser(b.id, checked);
               };
-
               return (
                 <FormControlLabel
                   className={
                     b.checked
-                      ? clsx(classes.cb, classes.cbBorderSelected)
+                      ? clsx(classes.cb, classes.cbYellowSelected)
                       : clsx(classes.cb, classes.cbBorder)
                   }
                   control={
