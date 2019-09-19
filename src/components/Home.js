@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import ListTemplate from "./ListTemplate";
+import ListTemplate from "./lists/ListTemplate";
 import Settings from "./Setting";
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -14,13 +14,13 @@ import {
   sitePlaceholder,
   sites
 } from "../shared/Shared";
+import Keywords from "./Keywords";
 
 class Home extends Component {
   /* Initialise state of the application */
   constructor() {
     super();
     UniqueId.enableUniqueIds(this);
-
     this.state = {
       browsers: [
         { id: this.nextUniqueId(), name: "Chrome", checked: false },
@@ -49,6 +49,42 @@ class Home extends Component {
           checked: true
         },
         { id: this.nextUniqueId(), name: "Remove History", checked: false }
+      ],
+      settings: {
+        wait: {
+          hour: 40,
+          second: 55
+        },
+        isVisitPage: true,
+        page: {
+          noOfPage: 1,
+          from: 30,
+          to: 50
+        },
+        operation: {
+          complete: 5,
+          wait: 10
+        },
+        target: {
+          site: 10,
+          wait: 20
+        },
+        reset: 1
+      },
+      shoes: [
+        { id: this.nextUniqueId(), name: "Shoes" },
+        { id: this.nextUniqueId(), name: "Shoes carnival" },
+        { id: this.nextUniqueId(), name: "Shoes shoes palace" },
+        { id: this.nextUniqueId(), name: "Shoes stores near me" },
+        { id: this.nextUniqueId(), name: "Shoes shoes for crwe" },
+        { id: this.nextUniqueId(), name: "Shoes station" },
+        { id: this.nextUniqueId(), name: "Shoes repair" },
+        { id: this.nextUniqueId(), name: "Shoes store" },
+        { id: this.nextUniqueId(), name: "Shoes for women" },
+        { id: this.nextUniqueId(), name: "Shoes fashion week" },
+        { id: this.nextUniqueId(), name: "Shoes instagram" },
+        { id: this.nextUniqueId(), name: "Shoes stories" },
+        { id: this.nextUniqueId(), name: "Shoes show" }
       ]
     };
   }
@@ -84,6 +120,16 @@ class Home extends Component {
     this.setState({ methods: methods });
   };
 
+  deleteShoes = id => {};
+
+  addKeyword = (name, cb) => {
+    const kws = this.state.shoes;
+    const newKw = { id: this.nextUniqueId(), name: name };
+    kws.push(newKw);
+    this.setState({ keywords: keywords });
+    cb()
+  };
+
   render() {
     return (
       <div>
@@ -91,22 +137,25 @@ class Home extends Component {
           <Header />
           <Grid container spacing={3}>
             <Grid item xs={3}>
-              <ListTemplate
+              <Keywords
+                keywords={this.state.shoes}
+                addKeyword={this.addKeyword}
                 headerName={keywords}
                 placeholderText={kwPlaceholder}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <ListTemplate
                 headerName={sites}
                 placeholderText={sitePlaceholder}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <Settings
                 browsers={this.state.browsers}
                 devices={this.state.devices}
                 methods={this.state.methods}
+                settings={this.state.settings}
                 updateBrowser={this.updateBrowser}
                 updateDevice={this.updateDevice}
                 updateMethod={this.updateMethod}

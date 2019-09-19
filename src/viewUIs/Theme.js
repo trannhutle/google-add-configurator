@@ -130,6 +130,10 @@ export const useSettingPageStyle = makeStyles(theme =>
       width: "50px",
       "vertical-align": "middle"
     },
+    iconList: {
+      "vertical-align": "middle",
+      fontSize: "1rem"
+    },
     alignCenter: {
       alignItems: "center",
       justifyContent: "center"
@@ -155,6 +159,8 @@ export const useSettingPageStyle = makeStyles(theme =>
     }
   })
 );
+
+
 
 const CustomTheme = theme;
 
