@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 
 import Button from "@material-ui/core/Button";
@@ -19,8 +19,10 @@ import Typography from "@material-ui/core/Typography";
 
 const Header = props => {
   const classes = useSettingPageStyle();
-  const inputField = React.createRef();
-  const handleAddGoald = event => {
+  const [inputField] = useState(React.createRef());
+
+  //Handle add new keyword
+  const handleAddKeyword = event => {
     event.preventDefault();
     console.log("this is input ref", inputField.current.value);
     const name = inputField.current.value;
@@ -40,7 +42,7 @@ const Header = props => {
             <Button
               variant="contained"
               size="small"
-              onClick={handleAddGoald}
+              onClick={handleAddKeyword}
               color={props.headerName === keywords ? "primary" : "secondary"}
             >
               <AddIcon className={classes.iconList} />
@@ -57,6 +59,20 @@ const KeywordsList = props => {
   return (
     <List className={clsx(classes.whiteText, classes.textList)}>
       {props.keywords.map(k => {
+        {
+          /* Handle delete event */
+        }
+        const deleteHandle = event => {
+          event.preventDefault();
+          props.deleteKeyword(k.id, failed => {
+            if (failed) {
+              props.addKeyword(k.name, status => {
+                console.log("An error is occured");
+              });
+              alert("An error is occrured please try again");
+            }
+          });
+        };
         return (
           <ListItem>
             <ListItemText primary={k.name}>
@@ -67,6 +83,7 @@ const KeywordsList = props => {
                 variant="outlined"
                 size="small"
                 className={clsx(classes.whiteText, classes.textList)}
+                onClick={deleteHandle}
               >
                 <DeleteIcon className={classes.icon} />
                 Clear
@@ -84,6 +101,7 @@ export const Keywords = props => {
       header={<Header {...props} />}
       list={<KeywordsList {...props} />}
       addKeyword={props.addKeyword}
+      deleteKeyword={props.deleteKeyword}
     ></ListTemplates>
   );
 };

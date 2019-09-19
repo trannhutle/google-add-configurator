@@ -8,5 +8,5 @@ export const yellowColor = "#febd03";
 export const hoverYellowColor = "#ffa000";
 export const keywords = "Keywords";
 export const kwPlaceholder = "Enter your keywords here (shoes)";
-export const sites = "Sites";
+export const sitesTitle = "Sites";
 export const sitePlaceholder = "Enter your keywords here (shoes)";

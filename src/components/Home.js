@@ -12,9 +12,10 @@ import {
   keywords,
   kwPlaceholder,
   sitePlaceholder,
-  sites
+  sitesTitle
 } from "../shared/Shared";
 import Keywords from "./Keywords";
+import Sites from "./Sites";
 
 class Home extends Component {
   /* Initialise state of the application */
@@ -71,7 +72,7 @@ class Home extends Component {
         },
         reset: 1
       },
-      shoes: [
+      keywords: [
         { id: this.nextUniqueId(), name: "Shoes" },
         { id: this.nextUniqueId(), name: "Shoes carnival" },
         { id: this.nextUniqueId(), name: "Shoes shoes palace" },
@@ -85,9 +86,29 @@ class Home extends Component {
         { id: this.nextUniqueId(), name: "Shoes instagram" },
         { id: this.nextUniqueId(), name: "Shoes stories" },
         { id: this.nextUniqueId(), name: "Shoes show" }
+      ],
+      sites: [
+        { id: this.nextUniqueId(), name: "www.dockers.com" },
+        { id: this.nextUniqueId(), name: "www.adidas.com" },
+        { id: this.nextUniqueId(), name: "www.nike.com" },
+        { id: this.nextUniqueId(), name: "www.underamour.com" },
+        { id: this.nextUniqueId(), name: "www.newbalance.com" },
+        { id: this.nextUniqueId(), name: "www.puma.com" },
+        { id: this.nextUniqueId(), name: "www.prada.com" },
+        { id: this.nextUniqueId(), name: "www.fredperry.com" },
+        { id: this.nextUniqueId(), name: "www.caterpillar.com" },
+        { id: this.nextUniqueId(), name: "www.gucci.com" },
+        { id: this.nextUniqueId(), name: "www.allenedmonds.com" },
+        { id: this.nextUniqueId(), name: "www.brunomagli.com" },
+        { id: this.nextUniqueId(), name: "www.diesel.com" }
       ]
     };
   }
+
+  fail = () => {
+    return Math.floor(Math.random() * (5 - 1)) === 3;
+  };
+
   updateBrowser = (id, checked) => {
     const index = this.state.browsers.findIndex(b => {
       return b.id === id;
@@ -120,14 +141,100 @@ class Home extends Component {
     this.setState({ methods: methods });
   };
 
-  deleteShoes = id => {};
+  deleteKeyword = (id, cb) => {
+    const kws = this.state.keywords.filter(k => {
+      if (k.id !== id) {
+        return true;
+      }
+      return false;
+    });
+    // Immitate error
+    new Promise((resolve, reject) => {
+      this.setState({ keywords: kws });
+      const isFailed = this.fail();
+      if (isFailed) {
+        reject(isFailed);
+      } else {
+        resolve(isFailed);
+      }
+    })
+      .then(res => {
+        cb(res);
+      })
+      .catch(error => {
+        cb(error);
+      });
+  };
 
   addKeyword = (name, cb) => {
-    const kws = this.state.shoes;
+    const kws = Object.assign([], this.state.keywords);
     const newKw = { id: this.nextUniqueId(), name: name };
     kws.push(newKw);
-    this.setState({ keywords: keywords });
-    cb()
+
+    // Immitate error
+    new Promise((resolve, reject) => {
+      this.setState({ keywords: kws });
+      const isFailed = this.fail();
+      if (isFailed) {
+        reject(isFailed);
+      } else {
+        resolve(isFailed);
+      }
+    })
+      .then(res => {
+        cb(res);
+      })
+      .catch(error => {
+        cb(error);
+      });
+  };
+
+  addSite = (name, cb) => {
+    const sites = Object.assign([], this.state.sites);
+    const newSite = { id: this.nextUniqueId(), name: name };
+    sites.push(newSite);
+
+    // Immitate error
+    new Promise((resolve, reject) => {
+      this.setState({ sites: sites });
+      const isFailed = this.fail();
+      if (isFailed) {
+        reject(isFailed);
+      } else {
+        resolve(isFailed);
+      }
+    })
+      .then(res => {
+        cb(res);
+      })
+      .catch(error => {
+        cb(error);
+      });
+  };
+
+  deleteSite = (id, cb) => {
+    const sites = this.state.sites.filter(k => {
+      if (k.id !== id) {
+        return true;
+      }
+      return false;
+    });
+    // Immitate error
+    new Promise((resolve, reject) => {
+      this.setState({ sites: sites });
+      const isFailed = this.fail();
+      if (isFailed) {
+        reject(isFailed);
+      } else {
+        resolve(isFailed);
+      }
+    })
+      .then(res => {
+        cb(res);
+      })
+      .catch(error => {
+        cb(error);
+      });
   };
 
   render() {
@@ -138,18 +245,22 @@ class Home extends Component {
           <Grid container spacing={3}>
             <Grid item xs={3}>
               <Keywords
-                keywords={this.state.shoes}
+                keywords={this.state.keywords}
                 addKeyword={this.addKeyword}
+                deleteKeyword={this.deleteKeyword}
                 headerName={keywords}
                 placeholderText={kwPlaceholder}
               />
             </Grid>
-            {/* <Grid item xs={3}>
-              <ListTemplate
-                headerName={sites}
+            <Grid item xs={3}>
+              <Sites
+                sites={this.state.sites}
+                addSite={this.addSite}
+                deleteSite={this.deleteSite}
+                headerName={sitesTitle}
                 placeholderText={sitePlaceholder}
               />
-            </Grid> */}
+            </Grid>
             <Grid item xs={6}>
               <Settings
                 browsers={this.state.browsers}
