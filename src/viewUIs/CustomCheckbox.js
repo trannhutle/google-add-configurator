@@ -1,6 +1,6 @@
 import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
+import { withStyles } from "@material-ui/core/styles";
+import Checkbox from "@material-ui/core/Checkbox";
 import { defaultColor, greenColor, blueColor, yellowColor } from "../shared/Shared";
 
 const greenCbStyles = theme => ({

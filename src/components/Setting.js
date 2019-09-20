@@ -1,14 +1,11 @@
 import React from "react";
-import clsx from "clsx"
+import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Divider from "@material-ui/core/Divider";
-import { Box, FormLabel } from "@material-ui/core";
-import CustomCheckbox from "../viewUIs/CustomCheckbox";
+import Box from "@material-ui/core/Box";
 import PauseCircle from "@material-ui/icons/PauseCircleOutline";
 import PlayCircle from "@material-ui/icons/PlayCircleOutline";
 import { useSettingPageStyle } from "../viewUIs/Theme";
@@ -20,6 +17,28 @@ import Configuration from "./settings/Configuration";
 
 export function Settings(props) {
   const classes = useSettingPageStyle();
+
+  const startSettingHandle = event => {
+    event.preventDefault();
+    props.startSetting(isFailed => {
+      if (!isFailed) {
+        alert("This configuration is started!");
+      } else {
+        alert("An error is occured. Please try again!");
+      }
+    });
+  };
+
+  const stopSettingHandle = event => {
+    event.preventDefault();
+    alert("Stop setting is triggred!");
+  };
+
+  const exportSettingHandle = event => {
+    event.preventDefault();
+    alert("Export setting is triggred!");
+  };
+
   return (
     <div>
       <Paper className={classes.paper}>
@@ -61,6 +80,7 @@ export function Settings(props) {
             variant="contained"
             color="default"
             className={classes.btnGroup}
+            onClick={exportSettingHandle}
           >
             Export Report
           </Button>
@@ -68,6 +88,7 @@ export function Settings(props) {
             variant="contained"
             color="primary"
             className={classes.btnGroup}
+            onClick={stopSettingHandle}
           >
             <PauseCircle fontSize="small" />
             Stop
@@ -76,6 +97,7 @@ export function Settings(props) {
             variant="contained"
             color="secondary"
             className={classes.btnGroup}
+            onClick={startSettingHandle}
           >
             <PlayCircle fontSize="small" />
             Start

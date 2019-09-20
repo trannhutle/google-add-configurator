@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Box from "@material-ui/core/Box";
 import CustomCheckbox from "../..//viewUIs/CustomCheckbox";
 
 import { useSettingPageStyle } from "../../viewUIs/Theme";

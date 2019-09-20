@@ -1,17 +1,11 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Divider from "@material-ui/core/Divider";
 import { Box, FormLabel } from "@material-ui/core";
 import CustomCheckbox from "../../viewUIs/CustomCheckbox";
-import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import { useSettingPageStyle } from "../../viewUIs/Theme";
-
 
 export const Configuration = props => {
   const classes = useSettingPageStyle();

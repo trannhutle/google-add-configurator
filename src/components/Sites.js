@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
+import { connect } from "react-redux";
 import clsx from "clsx";
 
 import Button from "@material-ui/core/Button";
@@ -8,7 +9,6 @@ import AddIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 
 import ListTemplates from "./lists/ListTemplate";
 import { useSettingPageStyle } from "../viewUIs/Theme";
-import { keywords } from "../shared/Shared";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -17,23 +17,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import Typography from "@material-ui/core/Typography";
 
+import { handleDeleteSite, handleAddSite } from "../actions/sites";
+
 const Header = props => {
   const classes = useSettingPageStyle();
-  const [inputField2] = useState(React.createRef());
-  //Handle add new keyword
-  const handleAddKeyword = event => {
-    event.preventDefault();
-    console.log("this is input ref", inputField2);
-    const name = inputField2.current.value;
-    props.addSite(name, () => {
-      inputField2.current.value = "";
-    });
-  };
+
   return (
     <TextField
       className={clsx(classes.textField)}
-      placeholder={props.placeholderText}
-      inputRef={inputField2}
+      placeholder="Enter your site here"
+      inputRef={props.inputField}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -41,8 +34,8 @@ const Header = props => {
             <Button
               variant="contained"
               size="small"
-              onClick={handleAddKeyword}
-              color={props.headerName === keywords ? "primary" : "secondary"}
+              onClick={props.addSite}
+              color="secondary"
             >
               <AddIcon className={classes.iconList} />
               Add
@@ -58,22 +51,14 @@ const SitesList = props => {
   return (
     <List className={clsx(classes.whiteText, classes.textList)}>
       {props.sites.map(s => {
-        {
-          /* Handle delete event */
-        }
+        // Handle delete event
         const deleteHandle = event => {
           event.preventDefault();
-          props.deleteSite(s.id, failed => {
-            if (failed) {
-              props.addSite(s.name, status => {
-                console.log("An error is occured");
-              });
-              alert("An error is occrured please try again");
-            }
-          });
+          props.deleteSite(s);
         };
+
         return (
-          <ListItem>
+          <ListItem key={s.id}>
             <ListItemText primary={s.name}>
               <Typography type="body2"> </Typography>
             </ListItemText>
@@ -94,15 +79,33 @@ const SitesList = props => {
     </List>
   );
 };
-export const Sites = props => {
-  return (
-    <ListTemplates
-      header={<Header {...props} />}
-      list={<SitesList {...props} />}
-      addSite={props.addSite}
-      deleteSite={props.deleteSite}
-    ></ListTemplates>
-  );
-};
+class Sites extends Component {
+  inputField = React.createRef();
 
-export default Sites;
+  addSite = e => {
+    e.preventDefault();
+    const name = this.inputField.current.value;
+    console.log("This is name: ", name)
+    this.props.dispatch(
+      handleAddSite(name, () => {
+        this.inputField.current.value = "";
+      })
+    );
+  };
+  deleteSite = keyword => {
+    this.props.dispatch(handleDeleteSite(keyword));
+  };
+
+  render() {
+    return (
+      <ListTemplates
+        header={<Header addSite={this.addSite} inputField={this.inputField} />}
+        list={<SitesList {...this.props} deleteSite={this.deleteSite} />}
+      ></ListTemplates>
+    );
+  }
+}
+
+export default connect(state => ({
+  sites: state.sites
+}))(Sites);

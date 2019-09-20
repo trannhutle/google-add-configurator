@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
@@ -27,6 +26,7 @@ const ListItems = props => {
 
 export function ListTemplate(props) {
   const classes = useSettingPageStyle();
+  console.log("this is the information is passed", props);
   return (
     <div className={classes.paper}>
       <Header
@@ -35,7 +35,7 @@ export function ListTemplate(props) {
         header={props.header}
       />
       <Divider className={classes.marginVertical} />
-      <ListItems list={props.list} />
+      <ListItems list={props.list} addKeyword={props.addKeyword} />
     </div>
   );
 }

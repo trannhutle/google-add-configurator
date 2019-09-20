@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import clsx from "clsx";
 
 import Button from "@material-ui/core/Button";
@@ -8,7 +9,6 @@ import AddIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 
 import ListTemplates from "./lists/ListTemplate";
 import { useSettingPageStyle } from "../viewUIs/Theme";
-import { keywords } from "../shared/Shared";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -16,25 +16,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import Typography from "@material-ui/core/Typography";
+import { handleAddKeyword, handleRemoveKeyword } from "../actions/keywords";
 
 const Header = props => {
   const classes = useSettingPageStyle();
-  const [inputField] = useState(React.createRef());
 
-  //Handle add new keyword
-  const handleAddKeyword = event => {
-    event.preventDefault();
-    console.log("this is input ref", inputField.current.value);
-    const name = inputField.current.value;
-    props.addKeyword(name, () => {
-      inputField.current.value = "";
-    });
-  };
   return (
     <TextField
       className={clsx(classes.textField)}
-      placeholder={props.placeholderText}
-      inputRef={inputField}
+      placeholder="Enter your keywords here (shoes)"
+      inputRef={props.inputField}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -42,8 +33,8 @@ const Header = props => {
             <Button
               variant="contained"
               size="small"
-              onClick={handleAddKeyword}
-              color={props.headerName === keywords ? "primary" : "secondary"}
+              onClick={props.addKeyword}
+              color="primary"
             >
               <AddIcon className={classes.iconList} />
               Add
@@ -56,25 +47,17 @@ const Header = props => {
 };
 const KeywordsList = props => {
   const classes = useSettingPageStyle();
+
   return (
     <List className={clsx(classes.whiteText, classes.textList)}>
       {props.keywords.map(k => {
-        {
-          /* Handle delete event */
-        }
+        // Handle delete event
         const deleteHandle = event => {
           event.preventDefault();
-          props.deleteKeyword(k.id, failed => {
-            if (failed) {
-              props.addKeyword(k.name, status => {
-                console.log("An error is occured");
-              });
-              alert("An error is occrured please try again");
-            }
-          });
+          props.deleteKeyword(k);
         };
         return (
-          <ListItem>
+          <ListItem key={k.id}>
             <ListItemText primary={k.name}>
               <Typography type="body2"> </Typography>
             </ListItemText>
@@ -95,15 +78,35 @@ const KeywordsList = props => {
     </List>
   );
 };
-export const Keywords = props => {
-  return (
-    <ListTemplates
-      header={<Header {...props} />}
-      list={<KeywordsList {...props} />}
-      addKeyword={props.addKeyword}
-      deleteKeyword={props.deleteKeyword}
-    ></ListTemplates>
-  );
-};
 
-export default Keywords;
+class Keywords extends Component {
+  inputField = React.createRef();
+
+  addKeyword = e => {
+    e.preventDefault();
+    const productName = this.inputField.current.value;
+    this.props.dispatch(
+      handleAddKeyword(productName, () => {
+        this.inputField.current.value = "";
+      })
+    );
+  };
+  deleteKeyword = keyword => {
+    this.props.dispatch(handleRemoveKeyword(keyword));
+  };
+
+  render() {
+    return (
+      <ListTemplates
+        header={
+          <Header addKeyword={this.addKeyword} inputField={this.inputField} />
+        }
+        list={
+          <KeywordsList {...this.props} deleteKeyword={this.deleteKeyword} />
+        }
+      ></ListTemplates>
+    );
+  }
+}
+
+export default connect(state => ({ keywords: state.keywords }))(Keywords);

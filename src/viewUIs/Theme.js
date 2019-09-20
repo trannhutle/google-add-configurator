@@ -61,7 +61,6 @@ export const theme = createMuiTheme({
       }
     },
     MuiButton: {
-      color: "#FFF",
       containedPrimary: {
         backgroundColor: blueColor,
         "&:hover": {
@@ -85,7 +84,8 @@ export const theme = createMuiTheme({
         minWidth: "32px"
       },
       label: {
-        fontSize: "0.5rem"
+        fontSize: "0.5rem",
+        color: "#FFF"
       }
     }
   }
