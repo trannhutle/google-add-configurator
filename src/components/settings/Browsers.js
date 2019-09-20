@@ -16,8 +16,7 @@ export const Browsers = props => {
         <FormGroup row>
           {props.browsers.map(b => {
             const changeHandle = event => {
-              const checked = event.currentTarget.checked;
-              props.updateBrowser(b.id, checked);
+              props.updateBrowser(b.id);
             };
             return (
               <FormControlLabel

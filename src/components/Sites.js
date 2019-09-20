@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
 
@@ -85,7 +85,6 @@ class Sites extends Component {
   addSite = e => {
     e.preventDefault();
     const name = this.inputField.current.value;
-    console.log("This is name: ", name)
     this.props.dispatch(
       handleAddSite(name, () => {
         this.inputField.current.value = "";

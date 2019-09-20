@@ -20,6 +20,15 @@ var keywords = [
 KwServices.getKeywords = () => {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      try {
+        const keywordsDB = localStorage.getItem("keywordsDB");
+        console.log(keywordsDB);
+        if (keywordsDB) {
+          keywords = JSON.parse(keywordsDB);
+        }
+      } catch (err) {
+        console.error(err);
+      }
       res(keywords);
     }, 3000);
   });
@@ -47,6 +56,15 @@ KwServices.deleteKeyword = id => {
         return false;
       });
       BackSharedServices.fail() ? rej() : res(keywords);
+    }, 1000);
+  });
+};
+
+KwServices.saveKeywords = kws => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      localStorage.setItem("keywordsDB", JSON.stringify(kws));
+      res(kws);
     }, 1000);
   });
 };

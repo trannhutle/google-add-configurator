@@ -1,85 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import Settings from "./Setting";
 import { ThemeProvider } from "@material-ui/styles";
 
 import Header from "./Header";
 import CustomTheme from "../viewUIs/Theme";
 import UniqueId from "react-html-id";
-
-import { keywordsTitle, sitesTitle } from "../shared/Shared";
 import ConnectedKeywords from "./Keywords";
 import ConnectedSites from "./Sites";
+import ConnectedSettings from "./Setting";
 import { handleLoadData } from "../actions/shared";
 
 class Home extends Component {
   /* Initialise state of the application */
-  constructor() {
-    super();
-    UniqueId.enableUniqueIds(this);
-    const localDb = localStorage.getItem("localDb");
-
-    if (localDb) {
-      this.state = JSON.parse(localDb);
-    } else {
-      this.state = {
-        browsers: [
-          { id: this.nextUniqueId(), name: "Chrome", checked: false },
-          { id: this.nextUniqueId(), name: "Firefox", checked: false },
-          { id: this.nextUniqueId(), name: "Explorer", checked: true },
-          { id: this.nextUniqueId(), name: "Safari", checked: false },
-          { id: this.nextUniqueId(), name: "Opera", checked: false },
-          { id: this.nextUniqueId(), name: "Incognito", checked: false }
-        ],
-        devices: [
-          { id: this.nextUniqueId(), name: "Device Reset", checked: false },
-          { id: this.nextUniqueId(), name: "Vinn Reset", checked: false },
-          { id: this.nextUniqueId(), name: "Phone Reset", checked: true },
-          { id: this.nextUniqueId(), name: "Mobile Data", checked: true },
-          { id: this.nextUniqueId(), name: "Fly Mode", checked: false }
-        ],
-        methods: [
-          { id: this.nextUniqueId(), name: "Remove Cookies", checked: true },
-          {
-            id: this.nextUniqueId(),
-            name: "Change Resolution",
-            checked: false
-          },
-          { id: this.nextUniqueId(), name: "Mouse Tracks", checked: false },
-          { id: this.nextUniqueId(), name: "Data Saving Mode", checked: true },
-          { id: this.nextUniqueId(), name: "Random Generate", checked: false },
-          {
-            id: this.nextUniqueId(),
-            name: "Analytic Protection",
-            checked: true
-          },
-          { id: this.nextUniqueId(), name: "Remove History", checked: false }
-        ],
-        settings: {
-          wait: {
-            hour: 40,
-            second: 55
-          },
-          isVisitPage: true,
-          page: {
-            noOfPage: 1,
-            from: 30,
-            to: 50
-          },
-          operation: {
-            complete: 5,
-            wait: 10
-          },
-          target: {
-            site: 10,
-            wait: 20
-          },
-          reset: 1
-        },
-      };
-    }
-  }
 
   fail = () => {
     return Math.floor(Math.random() * (5 - 1)) === 3;
@@ -145,6 +78,10 @@ class Home extends Component {
   }
 
   render() {
+    const { loading } = this.props;
+    if (loading === true) {
+      return <h3>loading...</h3>;
+    }
     return (
       <div>
         <ThemeProvider theme={CustomTheme}>
@@ -157,16 +94,7 @@ class Home extends Component {
               <ConnectedSites />
             </Grid>
             <Grid item xs={6}>
-              <Settings
-                browsers={this.state.browsers}
-                devices={this.state.devices}
-                methods={this.state.methods}
-                settings={this.state.settings}
-                updateBrowser={this.updateBrowser}
-                updateDevice={this.updateDevice}
-                updateMethod={this.updateMethod}
-                startSetting={this.startSetting}
-              />
+              <ConnectedSettings />
             </Grid>
           </Grid>
         </ThemeProvider>
@@ -175,4 +103,4 @@ class Home extends Component {
   }
 }
 
-export default connect(state => ({}))(Home);
+export default connect(state => ({ loading: state.loading }))(Home);

@@ -7,7 +7,6 @@ import { useSettingPageStyle } from "../../viewUIs/Theme";
 
 const Header = props => {
   const classes = useSettingPageStyle();
-  console.log("Go to header ", props.header);
   return (
     <Box className={classes.paddingHeader}>
       <Grid container>{props.header}</Grid>
@@ -26,7 +25,6 @@ const ListItems = props => {
 
 export function ListTemplate(props) {
   const classes = useSettingPageStyle();
-  console.log("this is the information is passed", props);
   return (
     <div className={classes.paper}>
       <Header

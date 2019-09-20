@@ -47,7 +47,6 @@ const BlueCb = withStyles(blueCbStyles)(Checkbox);
 const YellowCb = withStyles(yellowCbStyles)(Checkbox);
 
 const CustomCheckBox = props => {
-  console.log(props);
   const color = props.color;
   // Remove attribute color because of warning
   const cloneProps = Object.assign({}, props);

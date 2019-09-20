@@ -30,7 +30,6 @@ export function handleAddSite(name, cb) {
   return dispatch => {
     SiteServices.saveSite(name)
       .then(site => {
-        console.log(site)
         dispatch(addSite(site));
         cb();
       })

@@ -1,4 +1,5 @@
 import BackSharedServices from "./shared";
+import { reject } from "q";
 const SiteServices = {};
 
 var sites = [
@@ -19,6 +20,14 @@ var sites = [
 SiteServices.getSites = () => {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      try {
+        const siteDB = localStorage.getItem("siteDB");
+        if (siteDB) {
+          sites = JSON.parse(siteDB);
+        }
+      } catch (err) {
+        console.error(err)
+      }
       res(sites);
     }, 3000);
   });
@@ -49,5 +58,12 @@ SiteServices.deleteSite = id => {
     }, 1000);
   });
 };
-
+SiteServices.saveSites = updatedSites => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      localStorage.setItem("siteDB", JSON.stringify(updatedSites));
+      res(updatedSites);
+    }, 1000);
+  });
+};
 export default SiteServices;

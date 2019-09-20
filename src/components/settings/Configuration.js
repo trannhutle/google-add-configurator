@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -6,10 +6,19 @@ import TextField from "@material-ui/core/TextField";
 import { Box, FormLabel } from "@material-ui/core";
 import CustomCheckbox from "../../viewUIs/CustomCheckbox";
 import { useSettingPageStyle } from "../../viewUIs/Theme";
+import { handleUpdateConfig } from "../../actions/settings";
 
 export const Configuration = props => {
   const classes = useSettingPageStyle();
-
+  const handleChangeNumber = e => {
+    console.log(e.target.value);
+    console.log(e.target.name);
+    const value = e.target.value;
+    const configType = e.target.name;
+    if (value > 0) {
+      props.updateConfig(configType, value);
+    }
+  };
   return (
     <Box m={1}>
       <Box m={1}>
@@ -19,8 +28,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.wait.hour}
+                name="waitHour"
+                value={props.settings.waitHour}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -34,8 +45,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.wait.second}
+                name="waitSecond"
+                value={props.settings.waitSecond}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -67,8 +80,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.page.noOfPage}
+                name="pageNo"
+                value={props.settings.pageNo}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -82,8 +97,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.page.from}
+                name="pageFrom"
+                value={props.settings.pageFrom}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -95,8 +112,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.page.to}
+                name="pageTo"
+                value={props.settings.pageTo}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -114,8 +133,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.operation.complete}
+                name="operationComplete"
+                value={props.settings.operationComplete}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -129,8 +150,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.operation.wait}
+                name="operationWait"
+                value={props.settings.operationWait}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -149,8 +172,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.target.site}
+                name="targetSite"
+                value={props.settings.targetSite}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -164,8 +189,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
-                value={props.settings.target.wait}
+                name="targetWait"
+                value={props.settings.targetWait}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -189,8 +216,10 @@ export const Configuration = props => {
             control={
               <TextField
                 type="number"
+                name="reset"
                 value={props.settings.reset}
                 className={classes.inputNumber}
+                onChange={handleChangeNumber}
                 InputLabelProps={{
                   shrink: true
                 }}
