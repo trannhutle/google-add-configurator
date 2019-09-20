@@ -1,5 +1,5 @@
 import React from "react";
-
+import clsx from "clsx"
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -9,7 +9,8 @@ import TextField from "@material-ui/core/TextField";
 import Divider from "@material-ui/core/Divider";
 import { Box, FormLabel } from "@material-ui/core";
 import CustomCheckbox from "../viewUIs/CustomCheckbox";
-import DeleteIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import PauseCircle from "@material-ui/icons/PauseCircleOutline";
+import PlayCircle from "@material-ui/icons/PlayCircleOutline";
 import { useSettingPageStyle } from "../viewUIs/Theme";
 
 import { Browsers } from "./settings/Browsers";
@@ -22,12 +23,14 @@ export function Settings(props) {
   return (
     <div>
       <Paper className={classes.paper}>
-        <Browsers
-          browsers={props.browsers}
-          updateBrowser={props.updateBrowser}
-        />
-        <Divider className={classes.marginVertical} />
-        <Configuration settings={props.settings}/>
+        <Box className={clsx(classes.alignCenter, classes.paddingHeader)}>
+          <Browsers
+            browsers={props.browsers}
+            updateBrowser={props.updateBrowser}
+          />
+          <Divider className={classes.marginVertical} />
+          <Configuration settings={props.settings} />
+        </Box>
       </Paper>
 
       <Box mt={2}>
@@ -63,18 +66,18 @@ export function Settings(props) {
           </Button>
           <Button
             variant="contained"
-            color="secondary"
-            className={classes.btnGroup}
-          >
-            <DeleteIcon />
-            Delete
-          </Button>
-          <Button
-            variant="contained"
             color="primary"
             className={classes.btnGroup}
           >
-            <DeleteIcon />
+            <PauseCircle fontSize="small" />
+            Stop
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.btnGroup}
+          >
+            <PlayCircle fontSize="small" />
             Start
           </Button>
         </Grid>

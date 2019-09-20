@@ -85,7 +85,7 @@ const KeywordsList = props => {
                 className={clsx(classes.whiteText, classes.textList)}
                 onClick={deleteHandle}
               >
-                <DeleteIcon className={classes.icon} />
+                <DeleteIcon fontSize="small" />
                 Clear
               </Button>
             </ListItemSecondaryAction>

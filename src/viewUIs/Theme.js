@@ -55,6 +55,11 @@ export const theme = createMuiTheme({
         fontSize: "0.875rem"
       }
     },
+    MuiList: {
+      padding: {
+        padding: "0 !important"
+      }
+    },
     MuiButton: {
       color: "#FFF",
       containedPrimary: {
@@ -89,6 +94,7 @@ export const theme = createMuiTheme({
 export const useSettingPageStyle = makeStyles(theme =>
   createStyles({
     paper: {
+      height: "100%",
       background: "#253147",
       color: "#FFF"
     },
@@ -117,7 +123,7 @@ export const useSettingPageStyle = makeStyles(theme =>
       borderRadius: "5px"
     },
     marginVertical: {
-      margin: "1em 0",
+      margin: "0.5em 0",
       height: "3px",
       backgroundColor: "#243851"
     },
@@ -156,11 +162,23 @@ export const useSettingPageStyle = makeStyles(theme =>
         margin: "0 0.5em"
       },
       flexGrow: 1
+    },
+    paddingHeader: {
+      padding: "0.5em 0.5em 0 0.5em"
+    },
+    listWrapper: {
+      position: "relative",
+      height: "calc(100% - 3.6875em)",
+      width: "100%"
+    },
+    listContainer: {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      "overflow-y": "auto"
     }
   })
 );
-
-
 
 const CustomTheme = theme;
 

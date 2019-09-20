@@ -12,39 +12,37 @@ import { useSettingPageStyle } from "../../viewUIs/Theme";
 export const Browsers = props => {
   const classes = useSettingPageStyle();
   return (
-    <Box p={1} pb={0} className={classes.alignCenter}>
-      <Grid container>
-        <Grid xs={10} item>
-          <FormGroup row>
-            {props.browsers.map(b => {
-              const changeHandle = event => {
-                const checked = event.currentTarget.checked;
-                props.updateBrowser(b.id, checked);
-              };
-              return (
-                <FormControlLabel
-                  className={
-                    b.checked
-                      ? clsx(classes.cb, classes.cbYellowSelected)
-                      : clsx(classes.cb, classes.cbBorder)
-                  }
-                  control={
-                    <CustomCheckbox
-                      className={classes.cbSmall}
-                      color="yellow"
-                      checked={b.checked}
-                      value={b.name}
-                      onChange={changeHandle}
-                    />
-                  }
-                  label={b.name}
-                ></FormControlLabel>
-              );
-            })}
-          </FormGroup>
-        </Grid>
+    <Grid container>
+      <Grid xs={10} item>
+        <FormGroup row>
+          {props.browsers.map(b => {
+            const changeHandle = event => {
+              const checked = event.currentTarget.checked;
+              props.updateBrowser(b.id, checked);
+            };
+            return (
+              <FormControlLabel
+                className={
+                  b.checked
+                    ? clsx(classes.cb, classes.cbYellowSelected)
+                    : clsx(classes.cb, classes.cbBorder)
+                }
+                control={
+                  <CustomCheckbox
+                    className={classes.cbSmall}
+                    color="yellow"
+                    checked={b.checked}
+                    value={b.name}
+                    onChange={changeHandle}
+                  />
+                }
+                label={b.name}
+              ></FormControlLabel>
+            );
+          })}
+        </FormGroup>
       </Grid>
-    </Box>
+    </Grid>
   );
 };
 

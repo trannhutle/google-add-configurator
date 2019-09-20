@@ -7,9 +7,10 @@ import Box from "@material-ui/core/Box";
 import { useSettingPageStyle } from "../../viewUIs/Theme";
 
 const Header = props => {
+  const classes = useSettingPageStyle();
   console.log("Go to header ", props.header);
   return (
-    <Box p={1} pb={0}>
+    <Box className={classes.paddingHeader}>
       <Grid container>{props.header}</Grid>
     </Box>
   );
@@ -18,8 +19,8 @@ const Header = props => {
 const ListItems = props => {
   const classes = useSettingPageStyle();
   return (
-    <Grid item xs>
-      {props.list}
+    <Grid item xs className={classes.listWrapper}>
+      <div className={classes.listContainer}>{props.list}</div>
     </Grid>
   );
 };
